@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小纸片人 · 领养一个只属于你的TA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0c0b10;
+    --bg-card: #16141b;
+    --pink: #ffb3d1;
+    --yellow: #ffd766;
+    --blue: #a6d8ff;
+    --lilac: #c9b6ff;
+    --text: #f3f1f6;
+    --text-dim: #9a96a6;
+    --line: #34313d;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Noto Sans SC", sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  .accent-font{ font-family: "ZCOOL KuaiLe", "Noto Sans SC", sans-serif; }
+
+  /* decorative scatter */
+  .scatter{ position:absolute; opacity:.5; pointer-events:none; user-select:none; }
+
+  /* ============ NAV ============ */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 20px 6vw;
+    position: sticky; top:0; z-index: 50;
+    background: rgba(12,11,16,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo{ display:flex; align-items:center; gap:10px; font-size:20px; font-weight:700; }
+  .logo .paw{ font-size:20px; }
+  nav a.cta-small{
+    background: var(--pink); color:#2a1420; font-weight:700;
+    padding: 9px 20px; border-radius: 999px; text-decoration:none; font-size:14px;
+    box-shadow: 0 3px 0 #d98bab;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position: relative;
+    padding: 40px 6vw 28px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background: rgba(255,179,209,0.12);
+    border: 1px dashed var(--pink);
+    color: var(--pink);
+    padding: 6px 16px; border-radius: 999px;
+    font-size: 13px; margin-bottom: 14px;
+  }
+  .hero h1{
+    font-family: "ZCOOL KuaiLe", sans-serif;
+    font-size: clamp(30px, 5.5vw, 56px);
+    line-height:1.25;
+    margin-bottom: 12px;
+  }
+  .hero h1 .hl{ color: var(--yellow); }
+  .hero p.sub{
+    color: var(--text-dim); font-size: 15px; max-width: 480px; margin: 0 auto 22px;
+  }
+  .hero-art{
+    max-width: 720px; margin: 0 auto;
+    border-radius: 22px; overflow:hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+  }
+  .hero-art img{ display:block; width:100%; }
+
+  .cta-row{ display:flex; gap:14px; justify-content:center; margin-bottom: 26px; flex-wrap:wrap; }
+  .btn-primary{
+    background: var(--yellow); color:#33230a; font-weight:700; text-decoration:none;
+    padding: 12px 28px; border-radius: 999px; font-size:15px;
+    box-shadow: 0 4px 0 #c9a742;
+    transition: transform .15s ease;
+  }
+  .btn-primary:hover{ transform: translateY(-2px); }
+  .btn-ghost{
+    border: 1px solid var(--line); color: var(--text); text-decoration:none;
+    padding: 12px 28px; border-radius: 999px; font-size:15px;
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section{ padding: 40px 6vw; max-width: 1100px; margin: 0 auto; }
+  .section-head{ text-align:center; margin-bottom: 28px; }
+  .section-head .tag{
+    color: var(--blue); letter-spacing: 2px; font-size:13px; font-weight:700; margin-bottom:6px; display:block;
+  }
+  .section-head h2{
+    font-family: "ZCOOL KuaiLe", sans-serif;
+    font-size: clamp(24px, 3.6vw, 34px);
+  }
+
+  /* ============ FEATURES ============ */
+  .feat-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  .feat-card{
+    background: var(--bg-card);
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    padding: 20px 18px;
+  }
+  .feat-card .ico{ font-size: 24px; margin-bottom: 8px; display:block; }
+  .feat-card h3{ font-size:15px; margin-bottom:6px; }
+  .feat-card p{ font-size: 13px; color: var(--text-dim); }
+
+  /* ============ PRICING ============ */
+  .price-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+  }
+  .price-card{
+    background: var(--bg-card);
+    border-radius: 18px;
+    padding: 22px 18px;
+    border: 1px solid var(--line);
+    position: relative;
+    display:flex; flex-direction:column;
+  }
+  .price-card.featured{
+    border: 1px solid var(--pink);
+    box-shadow: 0 0 0 1px rgba(255,179,209,0.25), 0 20px 50px -25px rgba(255,179,209,0.35);
+  }
+  .price-card .badge{
+    position:absolute; top:-12px; left:22px;
+    background: var(--pink); color:#2a1420; font-size:11px; font-weight:700;
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .price-card .num{
+    width:30px; height:30px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:13px; margin-bottom:12px;
+  }
+  .price-card:nth-child(1) .num{ background: var(--pink); color:#2a1420; }
+  .price-card:nth-child(2) .num{ background: var(--yellow); color:#332404; }
+  .price-card:nth-child(3) .num{ background: var(--blue); color:#0a2233; }
+  .price-card:nth-child(4) .num{ background: var(--lilac); color:#221040; }
+  .price-card h3{ font-size: 16px; margin-bottom: 4px; }
+  .price-card .price{
+    font-family:"ZCOOL KuaiLe", sans-serif;
+    font-size: 27px; margin: 6px 0 2px;
+  }
+  .price-card .price .cur{ font-size:13px; color: var(--text-dim); font-weight:400; margin-left:4px;}
+  .price-card .desc{ font-size: 12.5px; color: var(--text-dim); flex-grow:1; margin: 8px 0 0; }
+  .price-card .note{
+    margin-top:10px; font-size: 11.5px; color: var(--yellow);
+    border-top: 1px dashed var(--line); padding-top: 10px;
+  }
+
+  /* ============ HOW IT WORKS ============ */
+  .steps{
+    display:flex; flex-direction:column; gap: 0;
+    border: 1px dashed var(--line); border-radius: 18px; overflow:hidden;
+  }
+  .step{
+    display:flex; align-items:center; gap: 16px;
+    padding: 16px 22px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .step:last-child{ border-bottom:none; }
+  .step .n{
+    flex-shrink:0; width:38px; height:38px; border-radius:50%;
+    background: var(--bg); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; font-weight:700;
+  }
+  .step h4{ font-size:15px; margin-bottom:3px; }
+  .step p{ font-size: 13px; color: var(--text-dim); }
+
+  /* ============ GUIDEBOOK PREVIEW ============ */
+  .book-strip{
+    display:flex; gap: 16px; overflow-x:auto; padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+  }
+  .book-strip img{
+    scroll-snap-align: start;
+    height: 260px; border-radius: 14px; border: 1px solid var(--line); flex-shrink:0;
+  }
+
+  /* ============ EXPRESSION PACKS ============ */
+  .pack-grid{
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px;
+    padding-top: 30px; /* 给展开面板留空间，避免被上面裁切 */
+  }
+  .pack-item{ text-align:center; }
+  .pack-hover-zone{ position: relative; }
+  .pack-thumb{
+    width: 100%; aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px dashed var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 30px;
+    margin-bottom: 8px;
+    overflow:hidden;
+    cursor: pointer;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .pack-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .pack-hover-zone:hover .pack-thumb{
+    border-color: var(--pink);
+    transform: scale(1.05);
+  }
+  .pack-item p{ font-size: 12.5px; color: var(--text-dim); }
+
+  .pack-expand{
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background: var(--bg-card);
+    border: 1px dashed var(--pink);
+    border-radius: 16px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 40px);
+    gap: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 20;
+    box-shadow: 0 12px 30px -10px rgba(0,0,0,0.6);
+  }
+  .pack-expand::after{
+    content:"";
+    position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--pink);
+  }
+  .pack-hover-zone:hover .pack-expand{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+  .exp-tile{
+    width:40px; height:40px; border-radius:10px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 18px; overflow:hidden;
+  }
+  .exp-tile img{ width:100%; height:100%; object-fit:cover; }
+
+  /* ============ FOOTER / CONTACT ============ */
+  .contact-box{
+    background: var(--bg-card);
+    border: 1px dashed var(--pink);
+    border-radius: 22px;
+    padding: 34px 6vw;
+    text-align:center;
+    margin: 10px 6vw 36px;
+  }
+  .contact-box h2{ font-family:"ZCOOL KuaiLe", sans-serif; font-size: clamp(22px,3.6vw,28px); margin-bottom:10px;}
+  .contact-box p{ color: var(--text-dim); margin-bottom: 18px; font-size: 13.5px;}
+
+  footer{
+    text-align:center; padding: 20px 6vw 36px;
+    color: var(--text-dim); font-size: 12px;
+  }
+  footer .disclaimer{ max-width: 560px; margin: 0 auto 10px; line-height:1.8; }
+
+  @media (max-width: 860px){
+    .feat-grid{ grid-template-columns: 1fr 1fr; }
+    .price-grid{ grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px){
+    .feat-grid{ grid-template-columns: 1fr; }
+    .price-grid{ grid-template-columns: 1fr; }
+    nav a.cta-small{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><span class="paw">🐾</span> Yan・小纸片人</div>
+  <a class="cta-small" href="#contact">领养TA</a>
+</nav>
+
+<section class="hero">
+  <span class="eyebrow">✦ 桌面常驻 · DeepSeek 驱动 · 独一份的TA ✦</span>
+  <h1 class="accent-font">每天打开电脑<br>都有 <span class="hl">TA</span> 在</h1>
+  <p class="sub">不是壁纸，不是摆件——是一个会记住你、会主动找你说话、只住在你电脑里的小纸片人。</p>
+  <div class="cta-row">
+    <a class="btn-primary" href="#pricing">看看价格</a>
+    <a class="btn-ghost" href="#contact">直接联系认领</a>
+  </div>
+  <div class="hero-art">
+    <img src="assets/guide2.png" alt="领养一个只属于你的小纸片人">
+  </div>
+</section>
+
+<section id="features">
+  <div class="section-head">
+    <span class="tag accent-font">FEATURES</span>
+    <h2 class="accent-font">TA 能做什么</h2>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <span class="ico">🧠</span>
+      <h3>会思考，会记住</h3>
+      <p>接了 DeepSeek，聊过的话TA会攒起来慢慢记住，不是每次都从零认识你。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">💬</span>
+      <h3>主动找你聊天</h3>
+      <p>不用你天天开口，TA闲下来会自己冒话，也会自己发呆，像真的养了点什么。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">🎨</span>
+      <h3>外观、性格随你定</h3>
+      <p>40+ 可定制表情包，性格关键词自己写，想要TA什么样，说了算的是你。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">🌗</span>
+      <h3>休闲 / 专注 两种模式</h3>
+      <p>工作时切专注模式，TA不吵你；闲下来切回休闲模式，TA陪你唠嗑。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">🔒</span>
+      <h3>对话都存在本地</h3>
+      <p>聊过的话、记住的事，全部存在这台电脑里，不会传去云端或者别的地方。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">🥚</span>
+      <h3>藏着一些小彩蛋</h3>
+      <p>连续戳会惹毛TA，偶尔会讨抱抱，拖着走姿势也会变——留给你自己发现。</p>
+    </div>
+  </div>
+</section>
+
+<section id="packs">
+  <div class="section-head">
+    <span class="tag accent-font">PRESET CHARACTERS</span>
+    <h2 class="accent-font">预设角色一览</h2>
+    <p style="color:var(--text-dim); font-size:13px; margin-top:8px;">鼠标移到头像上，看看这个角色都有哪些表情</p>
+  </div>
+  <div class="pack-grid">
+    <!-- 每上新一个预设角色，复制下面这整个 .pack-item 块：
+         1. .pack-thumb 里换成这个角色的封面图
+         2. .pack-expand 里的每个 .exp-tile 换成这个角色的单张表情图
+         3. .pack-item p 改成角色名 -->
+    <div class="pack-item">
+      <div class="pack-hover-zone">
+        <div class="pack-thumb">🐾</div>
+        <div class="pack-expand">
+          <div class="exp-tile">🐾</div>
+          <div class="exp-tile">🐾</div>
+          <div class="exp-tile">🐾</div>
+          <div class="exp-tile">🐾</div>
+        </div>
+      </div>
+      <p>敬请期待</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="section-head">
+    <span class="tag accent-font">PRICING</span>
+    <h2 class="accent-font">领养价目表</h2>
+  </div>
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="num">1</div>
+      <h3>小纸片人 · 主体</h3>
+      <div class="price">RM 6 <span class="cur">/ ¥10</span></div>
+      <p class="desc">桌面常驻程序本体，自带默认外观「言」和基础表情包，三层记忆、模式切换、基础互动全部包含，附赠图文养成攻略。</p>
+    </div>
+    <div class="price-card">
+      <div class="num">2</div>
+      <h3>预设角色</h3>
+      <div class="price">RM 4 <span class="cur">/ ¥7</span></div>
+      <p class="desc">陆续上新的其他角色，一整套立绘 + 表情包，风格由我来设计，不按个人需求定制，所以更便宜，可替换掉默认外观「言」。</p>
+    </div>
+    <div class="price-card">
+      <div class="num">3</div>
+      <h3>设计专属外观</h3>
+      <div class="price">RM 10 <span class="cur">/ ¥18</span></div>
+      <p class="desc">按你的需求从头设计一整套独一份的立绘 + 表情包，替换掉默认的「言」，风格、角色都可以聊。</p>
+    </div>
+    <div class="price-card">
+      <div class="num">4</div>
+      <h3>追加表情</h3>
+      <div class="price">RM 1 <span class="cur">/ ¥1.8</span></div>
+      <p class="desc">4个表情为一组，可指定关键词，为专属定制或预设角色继续加装表情。</p>
+      <div class="note">* 需先拥有专属外观或预设角色</div>
+    </div>
+  </div>
+  <div style="margin-top:18px; border:1px dashed var(--line); border-radius:14px; padding:14px 18px; font-size:12.5px; color:var(--text-dim); text-align:center;">
+    💡 以上价格不含 DeepSeek API 使用费 —— 需要自己注册 DeepSeek 账号并充值（附赠教程），不接 API 也能正常开机互动，只是不能聊天。
+  </div>
+</section>
+
+<section id="how">
+  <div class="section-head">
+    <span class="tag accent-font">HOW IT WORKS</span>
+    <h2 class="accent-font">怎么领养到TA</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <div><h4>联系我，说说想要哪些</h4><p>主体（含默认外观）/ 预设角色 / 专属定制，按你的预算和喜好选组合。</p></div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div><h4>转账确认</h4><p>支持支付宝（中国）、TnG E-Wallet 和 Shopee Pay（大马），确认好组合和价格后完成付款。</p></div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div><h4>收到程序 + 授权码</h4><p>压缩包 + 一串专属授权码，一台电脑激活一次就好。</p></div>
+    </div>
+    <div class="step">
+      <div class="n">4</div>
+      <div><h4>跟着《饲养指南》从零开始</h4><p>开机、激活、接上你自己的 DeepSeek API Key，全程图文教学，照着做就行。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="guidebook">
+  <div class="section-head">
+    <span class="tag accent-font">WHAT'S INCLUDED</span>
+    <h2 class="accent-font">附赠《小纸片人饲养指南》</h2>
+  </div>
+  <div class="book-strip">
+    <img src="assets/guide1.png" alt="第一篇：唤醒你的TA">
+    <img src="assets/guide2.png" alt="第二篇：赋予TA思考和记忆能力">
+    <img src="assets/guide3.png" alt="第三篇：个性化外观">
+    <img src="assets/guide4.png" alt="第四篇：互动篇">
+    <img src="assets/guide5.png" alt="第五篇：休闲模式和专注模式">
+    <img src="assets/guide6.png" alt="第六篇：进阶篇">
+  </div>
+</section>
+
+<div class="contact-box" id="contact">
+  <h2 class="accent-font">准备好领养一个TA了吗？</h2>
+  <p>私信我，告诉我你想要的组合 —— 主体 / 外观 / 专属定制，都可以聊。</p>
+  <a class="btn-primary" href="https://www.xiaohongshu.com/user/profile/5e232da800000000010071c3" target="_blank" rel="noopener">💌 小红书私信我</a>
+</div>
+
+<footer>
+  <p class="disclaimer">本产品不提供 DeepSeek 接口，需要自行注册 DeepSeek 账号并充值（附赠图文教程）。不接 DeepSeek 也能正常开机、互动，只是无法聊天、以及部分需要调用 API 的功能。聊天调用产生的费用由使用者自行承担，与本产品价格无关。本产品为个人开发制作的娱乐向小工具，一经购买不提供退款，激活码仅限一台设备使用。</p>
+  <p>© 2026 小纸片人 · 手工打造</p>
+</footer>
+
+</body>
+</html>
