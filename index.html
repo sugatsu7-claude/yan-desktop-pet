@@ -162,6 +162,28 @@
     border-top: 1px dashed var(--line); padding-top: 10px;
   }
 
+  /* ============ REQUIREMENTS ============ */
+  .req-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  .req-card{
+    background: var(--bg-card);
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    padding: 20px 18px;
+  }
+  .req-card .ico{ font-size: 24px; margin-bottom: 8px; display:block; }
+  .req-card h3{ font-size:15px; margin-bottom:10px; }
+  .req-card ul{ list-style:none; }
+  .req-card li{
+    font-size: 13px; color: var(--text); padding-left:16px; position:relative; margin-bottom:6px;
+  }
+  .req-card li::before{ content:"•"; position:absolute; left:0; color: var(--blue); }
+  .req-card .warn{
+    margin-top:10px; font-size: 11.5px; color: var(--yellow);
+    border-top: 1px dashed var(--line); padding-top: 10px;
+  }
+
   /* ============ HOW IT WORKS ============ */
   .steps{
     display:flex; flex-direction:column; gap: 0;
@@ -278,6 +300,7 @@
   @media (max-width: 860px){
     .feat-grid{ grid-template-columns: 1fr 1fr; }
     .price-grid{ grid-template-columns: 1fr 1fr; }
+    .req-grid{ grid-template-columns: 1fr; }
   }
   @media (max-width: 560px){
     .feat-grid{ grid-template-columns: 1fr; }
@@ -406,6 +429,40 @@
   </div>
   <div style="margin-top:18px; border:1px dashed var(--line); border-radius:14px; padding:14px 18px; font-size:12.5px; color:var(--text-dim); text-align:center;">
     💡 以上价格不含 DeepSeek API 使用费 —— 需要自己注册 DeepSeek 账号并充值（附赠教程），不接 API 也能正常开机互动，只是不能聊天。
+  </div>
+</section>
+
+<section id="requirements">
+  <div class="section-head">
+    <span class="tag accent-font">REQUIREMENTS</span>
+    <h2 class="accent-font">运行环境</h2>
+  </div>
+  <div class="req-grid">
+    <div class="req-card">
+      <span class="ico">💻</span>
+      <h3>系统</h3>
+      <ul>
+        <li>仅支持 Windows 10 及以上（64位）</li>
+      </ul>
+      <div class="warn">暂不支持 Mac / Linux</div>
+    </div>
+    <div class="req-card">
+      <span class="ico">📦</span>
+      <h3>安装方式</h3>
+      <ul>
+        <li>绿色免安装（portable exe）</li>
+        <li>解压即用，双击运行，不用走安装向导</li>
+      </ul>
+      <div class="warn">首次打开会看到蓝色安全提示（SmartScreen），属于正常现象</div>
+    </div>
+    <div class="req-card">
+      <span class="ico">📶</span>
+      <h3>网络</h3>
+      <ul>
+        <li>首次激活必须联网</li>
+        <li>日常聊天功能需要联网请求 DeepSeek API</li>
+      </ul>
+    </div>
   </div>
 </section>
 
