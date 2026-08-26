@@ -215,6 +215,8 @@
     transform: scale(1.05);
   }
   .pack-item p{ font-size: 12.5px; color: var(--text-dim); }
+  .pack-item .pack-name{ font-size:13.5px; font-weight:700; color: var(--text); }
+  .pack-item .pack-tagline{ font-size:11px; color: var(--text-dim); margin-top:3px; line-height:1.4; }
 
   .pack-expand{
     position: absolute;
@@ -352,18 +354,19 @@
     <!-- 每上新一个预设角色，复制下面这整个 .pack-item 块：
          1. .pack-thumb 里换成这个角色的封面图
          2. .pack-expand 里的每个 .exp-tile 换成这个角色的单张表情图
-         3. .pack-item p 改成角色名 -->
+         3. .pack-name 改成角色名，.pack-tagline 改成一句话性格简介 -->
     <div class="pack-item">
       <div class="pack-hover-zone">
-        <div class="pack-thumb">🐾</div>
+        <div class="pack-thumb"><img src="assets/kong-cover.png" alt="空 封面图"></div>
         <div class="pack-expand">
-          <div class="exp-tile">🐾</div>
-          <div class="exp-tile">🐾</div>
-          <div class="exp-tile">🐾</div>
-          <div class="exp-tile">🐾</div>
+          <div class="exp-tile"><img src="assets/kong-exp1.png" alt="空 表情"></div>
+          <div class="exp-tile"><img src="assets/kong-exp2.png" alt="空 表情"></div>
+          <div class="exp-tile"><img src="assets/kong-exp3.png" alt="空 表情"></div>
+          <div class="exp-tile"><img src="assets/kong-exp4.png" alt="空 表情"></div>
         </div>
       </div>
-      <p>敬请期待</p>
+      <p class="pack-name">空</p>
+      <p class="pack-tagline">清冷疏离的高岭之花，熟悉后有反差萌</p>
     </div>
   </div>
 </section>
