@@ -184,6 +184,53 @@
     border-top: 1px dashed var(--line); padding-top: 10px;
   }
 
+  /* ============ ANNOUNCEMENTS ============ */
+  .announce-list{
+    display:flex; flex-direction:column; gap: 12px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 6px;
+    position: relative;
+  }
+  .announce-list::-webkit-scrollbar{ width: 6px; }
+  .announce-list::-webkit-scrollbar-track{ background: transparent; }
+  .announce-list::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 999px; }
+  .announce-wrap{ position: relative; }
+  .announce-wrap.has-scroll::after{
+    content:""; position:absolute; left:0; right:6px; bottom:0; height:36px;
+    background: linear-gradient(to bottom, transparent, var(--bg) 90%);
+    pointer-events:none; border-radius: 0 0 18px 18px;
+  }
+  .announce-item{
+    background: var(--bg-card);
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    padding: 18px 20px;
+    display:flex; gap: 18px; align-items:flex-start;
+  }
+  .announce-item .date{
+    flex-shrink:0;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--blue);
+    font-size: 12px; font-weight:700;
+    padding: 6px 12px; border-radius: 999px;
+    white-space:nowrap;
+    margin-top: 2px;
+  }
+  .announce-item.pinned{ border: 1px solid var(--pink); }
+  .announce-item.pinned .date{ color: var(--pink); border-color: var(--pink); }
+  .announce-item .body{ flex-grow:1; }
+  .announce-item .tag-badge{
+    display:inline-block; font-size:11px; font-weight:700;
+    color:#33230a; background: var(--yellow);
+    padding: 2px 10px; border-radius: 999px; margin-bottom:6px;
+  }
+  .announce-item h4{ font-size:15px; margin-bottom:4px; }
+  .announce-item p{ font-size: 13px; color: var(--text-dim); }
+  .announce-item ul{ font-size: 13px; color: var(--text-dim); padding-left: 18px; margin-top: 2px; }
+  .announce-item li{ margin-bottom: 2px; }
+
   /* ============ HOW IT WORKS ============ */
   .steps{
     display:flex; flex-direction:column; gap: 0;
@@ -329,6 +376,66 @@
   </div>
 </section>
 
+<section id="news">
+  <div class="section-head">
+    <span class="tag accent-font">ANNOUNCEMENTS</span>
+    <h2 class="accent-font">最新公告</h2>
+  </div>
+  <div class="announce-wrap">
+    <div class="announce-list">
+      <!-- 每次发新公告，复制下面这整个 .announce-item 块，粘贴在最上面（最新的放最前）：
+           1. 日期改成今天
+           2. 如果是重要公告（比如大版本更新），加 class="pinned" 让它有粉色边框更显眼；普通公告不用加
+           3. tag-badge 可以写"版本更新" / "功能预告" / "维护通知"等，也可以直接删掉这一行
+           4. h4 是标题，p 是详细描述
+           超过约3-4条会自动出现滚动条，不用担心区块越拉越长 -->
+
+      <div class="announce-item pinned">
+        <div class="date">2026.09.02</div>
+        <div class="body">
+          <span class="tag-badge">版本更新</span>
+          <h4>0.3.5</h4>
+          <ul>
+            <li>新增相遇天数和要抱抱小游戏</li>
+            <li>聊天窗口支持esc关闭</li>
+            <li>修复求抱抱表情触发后没及时互动的情况下，气泡框有极小概率残留桌面的问题</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="announce-item">
+        <div class="date">2026.08.28</div>
+        <div class="body">
+          <span class="tag-badge">版本发布</span>
+          <h4>0.3.4 桌宠主体【言】+选购角色【空】</h4>
+          <p>终于正式和大家见面啦！</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var list = document.querySelector('.announce-list');
+  var wrap = document.querySelector('.announce-wrap');
+  if(!list || !wrap) return;
+  function checkAnnounceScroll(){
+    if(list.scrollHeight > list.clientHeight + 1){
+      wrap.classList.add('has-scroll');
+    } else {
+      wrap.classList.remove('has-scroll');
+    }
+  }
+  checkAnnounceScroll();
+  window.addEventListener('resize', checkAnnounceScroll);
+  list.addEventListener('scroll', function(){
+    var atBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 2;
+    wrap.classList.toggle('has-scroll', !atBottom);
+  });
+})();
+</script>
+
 <section id="features">
   <div class="section-head">
     <span class="tag accent-font">FEATURES</span>
@@ -429,6 +536,9 @@
   </div>
   <div style="margin-top:18px; border:1px dashed var(--line); border-radius:14px; padding:14px 18px; font-size:12.5px; color:var(--text-dim); text-align:center;">
     💡 以上价格不含 DeepSeek API 使用费 —— 需要自己注册 DeepSeek 账号并充值（附赠教程），不接 API 也能正常开机互动，只是不能聊天。
+  </div>
+  <div style="margin-top:10px; border:1px dashed var(--pink); border-radius:14px; padding:14px 18px; font-size:12.5px; color:var(--text); text-align:center;">
+    🎁 <strong style="color:var(--pink);">套餐1 + 套餐3</strong> 一起买有优惠：<strong style="color:var(--pink);">RM 9 / ¥15</strong>（单独买合计 RM10 / ¥17），私信直接说「主体+选购角色一起要」就行。
   </div>
 </section>
 
