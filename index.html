@@ -48,6 +48,12 @@
     padding: 9px 20px; border-radius: 999px; text-decoration:none; font-size:14px;
     box-shadow: 0 3px 0 #d98bab;
   }
+  nav a.cta-small.alt{
+    background: transparent; color: var(--pink);
+    border: 1px solid var(--pink);
+    box-shadow: none;
+  }
+  .nav-actions{ display:flex; align-items:center; gap:10px; }
 
   /* ============ HERO ============ */
   .hero{
@@ -119,6 +125,26 @@
   .feat-card .ico{ font-size: 24px; margin-bottom: 8px; display:block; }
   .feat-card h3{ font-size:15px; margin-bottom:6px; }
   .feat-card p{ font-size: 13px; color: var(--text-dim); }
+
+  /* ============ DLC ============ */
+  .dlc-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  .dlc-card{
+    background: var(--bg-card);
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    padding: 20px 18px;
+    position: relative;
+  }
+  .dlc-card .badge-free{
+    position:absolute; top:-10px; right:16px;
+    background: var(--yellow); color:#332404; font-size:11px; font-weight:700;
+    padding: 3px 12px; border-radius: 999px;
+  }
+  .dlc-card .ico{ font-size: 24px; margin-bottom: 8px; display:block; }
+  .dlc-card h3{ font-size:15px; margin-bottom:6px; }
+  .dlc-card p{ font-size: 13px; color: var(--text-dim); }
 
   /* ============ PRICING ============ */
   .price-grid{
@@ -387,7 +413,10 @@
 
 <nav>
   <div class="logo"><span class="paw">🐾</span> Yan・小纸片人</div>
-  <a class="cta-small" href="#contact">领养TA</a>
+  <div class="nav-actions">
+    <a class="cta-small alt" href="https://www.xiaohongshu.com/user/profile/5e232da800000000010071c3" target="_blank" rel="noopener">🍠 小红书</a>
+    <a class="cta-small" href="#contact">领养TA</a>
+  </div>
 </nav>
 
 <section class="hero">
@@ -508,6 +537,26 @@
       <p>聊过的话、记住的事，全部存在这台电脑里，不会传去云端或者别的地方。</p>
     </div>
     <div class="feat-card">
+      <span class="ico">🎮</span>
+      <h3>抱抱小游戏</h3>
+      <p>内置考验手速的抱抱小游戏，能刷新自己的最佳连击记录。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">🌦️</span>
+      <h3>天气联动表情</h3>
+      <p>根据你所在地的天气，有概率触发对应的天气表情。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">⏰</span>
+      <h3>定时提醒</h3>
+      <p>设置好时间，TA会温柔地提醒你重要的事情。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">🧩</span>
+      <h3>DLC 插件支持</h3>
+      <p>按需下载安装附加功能包，用不到了随时卸载，不占位置。</p>
+    </div>
+    <div class="feat-card">
       <span class="ico">🥚</span>
       <h3>藏着一些小彩蛋</h3>
       <p>连续戳会惹毛TA，偶尔会讨抱抱，拖着走姿势也会变——留给你自己发现。</p>
@@ -551,6 +600,26 @@
       </div>
       <p class="pack-name">知</p>
       <p class="pack-tagline">温柔知性，安静但很有主见</p>
+    </div>
+  </div>
+</section>
+
+<section id="dlc">
+  <div class="section-head">
+    <span class="tag accent-font">DLC</span>
+    <h2 class="accent-font">DLC 一览</h2>
+    <p style="color:var(--text-dim); font-size:13px; margin-top:8px;">按需下载安装的附加功能包，不装也完全不影响TA正常陪伴你</p>
+  </div>
+  <div class="dlc-grid">
+    <!-- 每上新一个DLC，复制下面这整个 .dlc-card 块：
+         1. 免费的保留 badge-free，收费的把文字改成价格（比如"RM3"），或者直接删掉这个 div
+         2. ico 换成贴合这个DLC的emoji
+         3. h3 是名称，p 是一句话说明 -->
+    <div class="dlc-card">
+      <div class="badge-free">免费</div>
+      <span class="ico">📖</span>
+      <h3>英语单词挑战</h3>
+      <p>轻量级学习小游戏，闲下来的时候陪你背几个单词。</p>
     </div>
   </div>
 </section>
