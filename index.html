@@ -145,6 +145,12 @@
   .dlc-card .ico{ font-size: 24px; margin-bottom: 8px; display:block; }
   .dlc-card h3{ font-size:15px; margin-bottom:6px; }
   .dlc-card p{ font-size: 13px; color: var(--text-dim); }
+  .dlc-card .tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .dlc-card .tags span{
+    font-size: 11px; color: var(--text-dim);
+    background: var(--bg); border: 1px solid var(--line);
+    padding: 3px 10px; border-radius: 999px;
+  }
 
   /* ============ PRICING ============ */
   .price-grid{
@@ -530,14 +536,14 @@
       <p>不用你天天开口，TA闲下来会自己冒话，也会自己发呆，像真的养了点什么。</p>
     </div>
     <div class="feat-card">
-      <span class="ico">🎨</span>
-      <h3>外观、性格随你定</h3>
-      <p>40+ 可定制表情包，性格关键词自己写，想要TA什么样，说了算的是你。</p>
-    </div>
-    <div class="feat-card">
       <span class="ico">🌗</span>
       <h3>休闲 / 专注 两种模式</h3>
       <p>工作时切专注模式，TA不吵你；闲下来切回休闲模式，TA陪你唠嗑。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">🎨</span>
+      <h3>外观、性格随你定</h3>
+      <p>初始外观含40+表情动作，也可自定义表情包，覆盖或追加入既有表情。</p>
     </div>
     <div class="feat-card">
       <span class="ico">🔒</span>
@@ -560,14 +566,14 @@
       <p>设置好时间，TA会温柔地提醒你重要的事情。</p>
     </div>
     <div class="feat-card">
-      <span class="ico">🧩</span>
-      <h3>DLC 插件支持</h3>
-      <p>按需下载安装附加功能包，用不到了随时卸载，不占位置。</p>
-    </div>
-    <div class="feat-card">
       <span class="ico">🥚</span>
       <h3>藏着一些小彩蛋</h3>
       <p>连续戳会惹毛TA，偶尔会讨抱抱，拖着走姿势也会变——留给你自己发现。</p>
+    </div>
+    <div class="feat-card">
+      <span class="ico">🧩</span>
+      <h3>DLC 插件支持</h3>
+      <p>按需下载安装附加功能包，用不到了随时卸载，不占位置。</p>
     </div>
   </div>
 </section>
@@ -622,12 +628,17 @@
     <!-- 每上新一个DLC，复制下面这整个 .dlc-card 块：
          1. 免费的保留 badge-free，收费的把文字改成价格（比如"RM3"），或者直接删掉这个 div
          2. ico 换成贴合这个DLC的emoji
-         3. h3 是名称，p 是一句话说明 -->
+         3. h3 是名称，p 是一句话说明
+         4. .tags 里面每个 span 是一个小标签（比如覆盖的分类/适用人群），不需要的话整个 div 删掉也行 -->
     <div class="dlc-card">
       <div class="badge-free">免费</div>
       <span class="ico">📖</span>
       <h3>英语单词挑战</h3>
-      <p>轻量级学习小游戏，闲下来的时候陪你背几个单词。</p>
+      <p>近1.5万词随机抽题，每天十题闲时刷一刷，答错的词会帮你存起来下次专攻。</p>
+      <div class="tags">
+        <span>中考</span><span>高考</span><span>四级</span><span>六级</span>
+        <span>考研</span><span>托福</span><span>雅思</span><span>GRE</span>
+      </div>
     </div>
   </div>
 </section>
