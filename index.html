@@ -330,6 +330,43 @@
   }
   .lightbox .lb-close:hover{ opacity:1; }
 
+  /* ============ VIDEO MODAL ============ */
+  .dlc-video-btn{
+    margin-top: 12px;
+    display:inline-flex; align-items:center; gap:6px;
+    background: var(--bg); color: var(--blue);
+    border: 1px solid var(--blue);
+    padding: 7px 16px; border-radius: 999px;
+    font-size: 12.5px; cursor:pointer;
+    font-family: "Noto Sans SC", sans-serif;
+    transition: background .15s ease, color .15s ease;
+  }
+  .dlc-video-btn:hover{ background: var(--blue); color:#0a2233; }
+  .video-modal{
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(6,5,8,0.92);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition: opacity .2s ease;
+    padding: 5vh 5vw;
+  }
+  .video-modal.open{ opacity:1; pointer-events:auto; }
+  .video-modal-content{ position:relative; }
+  .video-modal video{
+    display:block;
+    max-height: 88vh; max-width: 90vw;
+    aspect-ratio: 9 / 16;
+    border-radius: 16px;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.8);
+  }
+  .video-modal .vm-close{
+    position: absolute; top: -40px; right: 0;
+    color: var(--text); font-size: 28px; line-height:1;
+    cursor:pointer; background:none; border:none;
+    opacity:.8;
+  }
+  .video-modal .vm-close:hover{ opacity:1; }
+
   /* ============ EXPRESSION PACKS ============ */
   .pack-grid{
     display:grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px;
@@ -692,6 +729,7 @@
         <span>中考</span><span>高考</span><span>四级</span><span>六级</span>
         <span>考研</span><span>托福</span><span>雅思</span><span>GRE</span>
       </div>
+      <button class="dlc-video-btn" onclick="openVideo('assets/videos/dlc-vocab-en.mp4')">▶ 观看演示视频</button>
     </div>
   </div>
 </section>
@@ -829,6 +867,41 @@
   <button class="lb-close" aria-label="关闭">✕</button>
   <img src="" alt="">
 </div>
+
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-content">
+    <button class="vm-close" aria-label="关闭">✕</button>
+    <video id="videoModalPlayer" controls playsinline></video>
+  </div>
+</div>
+
+<script>
+(function(){
+  var vm = document.getElementById('videoModal');
+  var vmPlayer = document.getElementById('videoModalPlayer');
+  var vmClose = vm.querySelector('.vm-close');
+
+  window.openVideo = function(src){
+    vmPlayer.src = src;
+    vm.classList.add('open');
+    vmPlayer.play();
+  };
+  function closeVideo(){
+    vmPlayer.pause();
+    vmPlayer.currentTime = 0;
+    vm.classList.remove('open');
+    vmPlayer.removeAttribute('src');
+    vmPlayer.load();
+  }
+  vm.addEventListener('click', function(e){
+    if(e.target === vm) closeVideo();
+  });
+  vmClose.addEventListener('click', function(e){ e.stopPropagation(); closeVideo(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeVideo();
+  });
+})();
+</script>
 
 <script>
 (function(){
