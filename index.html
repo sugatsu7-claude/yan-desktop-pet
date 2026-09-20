@@ -47,6 +47,7 @@
     background: var(--pink); color:#2a1420; font-weight:700;
     padding: 9px 20px; border-radius: 999px; text-decoration:none; font-size:14px;
     box-shadow: 0 3px 0 #d98bab;
+    display:inline-flex; align-items:center; justify-content:center; gap:6px; line-height:1;
   }
   nav a.cta-small.alt{
     background: transparent; color: var(--pink);
@@ -54,6 +55,7 @@
     box-shadow: none;
   }
   .nav-actions{ display:flex; align-items:center; gap:10px; }
+  nav a.cta-small .ico-fix{ position:relative; top:-2px; }
 
   /* ============ HERO ============ */
   .hero{
@@ -100,6 +102,15 @@
     border: 1px solid var(--line); color: var(--text); text-decoration:none;
     padding: 12px 28px; border-radius: 999px; font-size:15px;
   }
+  .btn-ig{
+    background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+    color: #fff; font-weight:700; text-decoration:none;
+    padding: 12px 28px; border-radius: 999px; font-size:15px;
+    box-shadow: 0 4px 0 #9c1c5c;
+    transition: transform .15s ease;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .btn-ig:hover{ transform: translateY(-2px); }
 
   /* ============ SECTION SHELL ============ */
   section{ padding: 40px 6vw; max-width: 1100px; margin: 0 auto; }
@@ -422,6 +433,7 @@
 <nav>
   <div class="logo"><span class="paw">🐾</span> Yan・小纸片人</div>
   <div class="nav-actions">
+    <a class="cta-small alt" href="https://www.instagram.com/yandesktoppet/" target="_blank" rel="noopener"><span class="ico-fix">📷</span> IG</a>
     <a class="cta-small alt" href="https://www.xiaohongshu.com/user/profile/5e232da800000000010071c3" target="_blank" rel="noopener">🍠 小红书</a>
     <a class="cta-small" href="#contact">领养TA</a>
   </div>
@@ -763,7 +775,10 @@
 <div class="contact-box" id="contact">
   <h2 class="accent-font">准备好领养一个TA了吗？</h2>
   <p>私信我，告诉我你想要的组合 —— 主体 / 外观 / 专属定制，都可以聊。</p>
-  <a class="btn-primary" href="https://www.xiaohongshu.com/user/profile/5e232da800000000010071c3" target="_blank" rel="noopener">💌 小红书私信我</a>
+  <div class="cta-row">
+    <a class="btn-primary" href="https://www.xiaohongshu.com/user/profile/5e232da800000000010071c3" target="_blank" rel="noopener">💌 小红书私信我</a>
+    <a class="btn-ig" href="https://www.instagram.com/yandesktoppet/" target="_blank" rel="noopener">📷 IG私信我</a>
+  </div>
 </div>
 
 <footer>
