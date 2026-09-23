@@ -20,6 +20,8 @@
     --line: #34313d;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
+  html{ scroll-behavior: smooth; }
+  section, .contact-box{ scroll-margin-top: 90px; }
   body{
     background: var(--bg);
     color: var(--text);
@@ -91,6 +93,8 @@
   .hero-art img{ display:block; width:100%; }
 
   .cta-row{ display:flex; gap:14px; justify-content:center; margin-bottom: 26px; flex-wrap:wrap; }
+  .intro-video-row{ display:flex; gap:10px; justify-content:center; margin-bottom: 26px; flex-wrap:wrap; }
+  .intro-video-row .dlc-video-btn{ margin-top:0; }
   .btn-primary{
     background: var(--yellow); color:#33230a; font-weight:700; text-decoration:none;
     padding: 12px 28px; border-radius: 999px; font-size:15px;
@@ -111,6 +115,14 @@
     display:inline-flex; align-items:center; gap:6px;
   }
   .btn-ig:hover{ transform: translateY(-2px); }
+  .btn-xianyu{
+    background: #ffcc33; color:#332404; font-weight:700; text-decoration:none;
+    padding: 12px 28px; border-radius: 999px; font-size:15px;
+    box-shadow: 0 4px 0 #c9a020;
+    transition: transform .15s ease;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .btn-xianyu:hover{ transform: translateY(-2px); }
 
   /* ============ SECTION SHELL ============ */
   section{ padding: 40px 6vw; max-width: 1100px; margin: 0 auto; }
@@ -127,6 +139,7 @@
   .feat-grid{
     display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
   }
+  .feat-grid .feat-card:last-child{ grid-column: 2; }
   .feat-card{
     background: var(--bg-card);
     border: 1px dashed var(--line);
@@ -147,7 +160,10 @@
     border-radius: 18px;
     padding: 20px 18px;
     position: relative;
+    display: flex;
+    flex-direction: column;
   }
+  .dlc-card-body{ flex-grow: 1; }
   .dlc-card .badge-free{
     position:absolute; top:-10px; right:16px;
     background: var(--yellow); color:#332404; font-size:11px; font-weight:700;
@@ -267,7 +283,7 @@
   .announce-item .tag-badge{
     display:inline-block; font-size:11px; font-weight:700;
     color:#33230a; background: var(--yellow);
-    padding: 2px 10px; border-radius: 999px; margin-bottom:6px;
+    padding: 2px 10px; border-radius: 999px; margin-bottom:6px; margin-right:6px;
   }
   .announce-item h4{ font-size:15px; margin-bottom:4px; }
   .announce-item p{ font-size: 13px; color: var(--text-dim); }
@@ -332,7 +348,8 @@
 
   /* ============ VIDEO MODAL ============ */
   .dlc-video-btn{
-    margin-top: 12px;
+    margin-top: 14px;
+    align-self: flex-start;
     display:inline-flex; align-items:center; gap:6px;
     background: var(--bg); color: var(--blue);
     border: 1px solid var(--blue);
@@ -453,6 +470,7 @@
 
   @media (max-width: 860px){
     .feat-grid{ grid-template-columns: 1fr 1fr; }
+    .feat-grid .feat-card:last-child{ grid-column: auto; }
     .dlc-grid{ grid-template-columns: 1fr 1fr; }
     .price-grid{ grid-template-columns: 1fr 1fr; }
     .req-grid{ grid-template-columns: 1fr; }
@@ -463,6 +481,25 @@
     .price-grid{ grid-template-columns: 1fr; }
     nav a.cta-small{ display:none; }
   }
+
+  /* ============ NAV PROGRESS + SECTION LABEL ============ */
+  .nav-progress{
+    position: absolute; left:0; bottom:-1px; height: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--blue));
+    width: 0%;
+    transition: width .1s linear;
+  }
+  .nav-current{
+    font-size: 12px; color: var(--text-dim);
+    display:flex; align-items:center; gap:6px;
+    margin-right: 4px;
+  }
+  .nav-current .dot{
+    width:6px; height:6px; border-radius:50%; background: var(--pink); flex-shrink:0;
+  }
+  @media (max-width: 700px){
+    .nav-current{ display:none; }
+  }
 </style>
 </head>
 <body>
@@ -470,10 +507,13 @@
 <nav>
   <div class="logo"><span class="paw">🐾</span> Yan・小纸片人</div>
   <div class="nav-actions">
+    <span class="nav-current" id="navCurrent"><span class="dot"></span><span id="navCurrentText">公告</span></span>
     <a class="cta-small alt" href="https://www.instagram.com/yandesktoppet/" target="_blank" rel="noopener"><span class="ico-fix">📷</span> IG</a>
     <a class="cta-small alt" href="https://www.xiaohongshu.com/user/profile/5e232da800000000010071c3" target="_blank" rel="noopener">🍠 小红书</a>
+    <a class="cta-small alt" href="https://m.tb.cn/h.8v8fAma?tk=5ZYHTlRkJ7p" target="_blank" rel="noopener">🐟 闲鱼</a>
     <a class="cta-small" href="#contact">领养TA</a>
   </div>
+  <div class="nav-progress" id="navProgress"></div>
 </nav>
 
 <section class="hero">
@@ -504,6 +544,18 @@
            超过约3-4条会自动出现滚动条，不用担心区块越拉越长 -->
 
       <div class="announce-item pinned">
+        <div class="date">2026.09.23</div>
+        <div class="body">
+          <span class="tag-badge">DLC上线</span><span class="tag-badge">新增角色</span>
+          <h4>备忘小纸片+选购角色【野】</h4>
+          <ul>
+            <li>推出第二款免费DLC——让TA给你写报告吧！</li>
+            <li>新角色【野】和大家正式见面 | 选购角色全通的老师又多个选择啦</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="announce-item pinned">
         <div class="date">2026.09.20</div>
         <div class="body">
           <span class="tag-badge">版本更新</span>
@@ -529,19 +581,6 @@
         </div>
       </div>
 
-      <div class="announce-item pinned">
-        <div class="date">2026.09.20</div>
-        <div class="body">
-          <span class="tag-badge">版本更新</span>
-          <h4>0.4.1</h4>
-          <ul>
-            <li>优化表情管理功能——导入新表情包或恢复默认后立即生效，不用再重启程序</li>
-            <li>修复桌宠记忆里把"今天"记成"昨晚"、把你和TA说的话搞反的问题，新增记住"TA自己答应过的事"</li>
-            <li>技术行更新（设置面板常驻显示当前版本号 | 进一步完善插件（DLC）支持）</li>
-          </ul>
-        </div>
-      </div>
-
       <div class="announce-item">
         <div class="date">2026.09.13</div>
         <div class="body">
@@ -555,11 +594,14 @@
         </div>
       </div>
 
-      <div class="announce-item pinned">
+      <div class="announce-item">
         <div class="date">2026.09.13</div>
         <div class="body">
           <span class="tag-badge">新增角色</span>
           <h4>上新选购角色【知】</h4>
+          <ul>
+            <li>新角色【知】和大家正式见面 | 选购角色全通的老师又多个选择啦</li>
+          </ul>
         </div>
       </div>
 
@@ -613,6 +655,12 @@
   <div class="section-head">
     <span class="tag accent-font">FEATURES</span>
     <h2 class="accent-font">TA 能做什么</h2>
+  </div>
+  <div class="intro-video-row">
+    <button class="dlc-video-btn" onclick="openVideo('assets/intro-videos/intro-01-chat-memory.mp4')">▶ AI聊天人设与记忆</button>
+    <button class="dlc-video-btn" onclick="openVideo('assets/intro-videos/intro-02-interaction-minigame.mp4')">▶ 互动与小游戏</button>
+    <button class="dlc-video-btn" onclick="openVideo('assets/intro-videos/intro-03-appearance-custom.mp4')">▶ 外观导入与自定义</button>
+    <button class="dlc-video-btn" onclick="openVideo('assets/intro-videos/intro-04-dlc-features.mp4')">▶ DLC功能</button>
   </div>
   <div class="feat-grid">
     <div class="feat-card">
@@ -676,17 +724,18 @@
   </div>
   <div class="pack-grid">
     <!-- 每上新一个选购角色，复制下面这整个 .pack-item 块：
-         1. .pack-thumb 里换成这个角色的封面图
-         2. .pack-expand 里的每个 .exp-tile 换成这个角色的单张表情图
-         3. .pack-name 改成角色名，.pack-tagline 改成一句话性格简介 -->
+         1. 图片统一放在 assets/characters/ 文件夹下，命名规则：角色拼音-cover.png（封面图）、角色拼音-exp1~4.png（表情图）
+         2. .pack-thumb 里换成这个角色的封面图
+         3. .pack-expand 里的每个 .exp-tile 换成这个角色的单张表情图
+         4. .pack-name 改成角色名，.pack-tagline 改成一句话性格简介 -->
     <div class="pack-item">
       <div class="pack-hover-zone">
-        <div class="pack-thumb"><img src="assets/kong-cover.png" alt="空 封面图"></div>
+        <div class="pack-thumb"><img src="assets/characters/kong-cover.png" alt="空 封面图"></div>
         <div class="pack-expand">
-          <div class="exp-tile"><img src="assets/kong-exp1.png" alt="空 表情"></div>
-          <div class="exp-tile"><img src="assets/kong-exp2.png" alt="空 表情"></div>
-          <div class="exp-tile"><img src="assets/kong-exp3.png" alt="空 表情"></div>
-          <div class="exp-tile"><img src="assets/kong-exp4.png" alt="空 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/kong-exp1.png" alt="空 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/kong-exp2.png" alt="空 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/kong-exp3.png" alt="空 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/kong-exp4.png" alt="空 表情"></div>
         </div>
       </div>
       <p class="pack-name">空</p>
@@ -694,16 +743,29 @@
     </div>
     <div class="pack-item">
       <div class="pack-hover-zone">
-        <div class="pack-thumb"><img src="assets/zhi-cover.png" alt="知 封面图"></div>
+        <div class="pack-thumb"><img src="assets/characters/zhi-cover.png" alt="知 封面图"></div>
         <div class="pack-expand">
-          <div class="exp-tile"><img src="assets/zhi-exp1.png" alt="知 表情"></div>
-          <div class="exp-tile"><img src="assets/zhi-exp2.png" alt="知 表情"></div>
-          <div class="exp-tile"><img src="assets/zhi-exp3.png" alt="知 表情"></div>
-          <div class="exp-tile"><img src="assets/zhi-exp4.png" alt="知 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/zhi-exp1.png" alt="知 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/zhi-exp2.png" alt="知 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/zhi-exp3.png" alt="知 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/zhi-exp4.png" alt="知 表情"></div>
         </div>
       </div>
       <p class="pack-name">知</p>
       <p class="pack-tagline">温柔知性，安静但很有主见</p>
+    </div>
+    <div class="pack-item">
+      <div class="pack-hover-zone">
+        <div class="pack-thumb"><img src="assets/characters/ye-cover.png" alt="野 封面图"></div>
+        <div class="pack-expand">
+          <div class="exp-tile"><img src="assets/characters/ye-exp1.png" alt="野 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/ye-exp2.png" alt="野 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/ye-exp3.png" alt="野 表情"></div>
+          <div class="exp-tile"><img src="assets/characters/ye-exp4.png" alt="野 表情"></div>
+        </div>
+      </div>
+      <p class="pack-name">野</p>
+      <p class="pack-tagline">野小孩一个，欠揍但可爱</p>
     </div>
   </div>
 </section>
@@ -719,17 +781,33 @@
          1. 免费的保留 badge-free，收费的把文字改成价格（比如"RM3"），或者直接删掉这个 div
          2. ico 换成贴合这个DLC的emoji
          3. h3 是名称，p 是一句话说明
-         4. .tags 里面每个 span 是一个小标签（比如覆盖的分类/适用人群），不需要的话整个 div 删掉也行 -->
+         4. .tags 里面每个 span 是一个小标签（比如覆盖的分类/适用人群），不需要的话整个 div 删掉也行
+         5. 演示视频统一放在 assets/dlc-videos/ 文件夹下，命名规则：dlc-角色拼音或功能简写.mp4
+         6. icon/h3/p/tags 都包在 .dlc-card-body 里面，按钮放在外面，这样按钮才能稳定贴底对齐 -->
     <div class="dlc-card">
       <div class="badge-free">免费</div>
-      <span class="ico">📖</span>
-      <h3>英语单词挑战</h3>
-      <p>近1.5万词随机抽题，每天十题闲时刷一刷，答错的词会帮你存起来下次专攻。</p>
-      <div class="tags">
-        <span>中考</span><span>高考</span><span>四级</span><span>六级</span>
-        <span>考研</span><span>托福</span><span>雅思</span><span>GRE</span>
+      <div class="dlc-card-body">
+        <span class="ico">📖</span>
+        <h3>英语单词挑战</h3>
+        <p>近1.5万词随机抽题，每天十题闲时刷一刷，答错的词会帮你存起来下次专攻。</p>
+        <div class="tags">
+          <span>中考</span><span>高考</span><span>四级</span><span>六级</span>
+          <span>考研</span><span>托福</span><span>雅思</span><span>GRE</span>
+        </div>
       </div>
-      <button class="dlc-video-btn" onclick="openVideo('assets/dlc-vocab-en.mp4')">▶ 观看演示视频</button>
+      <button class="dlc-video-btn" onclick="openVideo('assets/dlc-videos/dlc-vocab-en.mp4')">▶ 观看演示视频</button>
+    </div>
+    <div class="dlc-card">
+      <div class="badge-free">免费</div>
+      <div class="dlc-card-body">
+        <span class="ico">🧾</span>
+        <h3>备忘小纸片</h3>
+        <p>不只是记事，还能一键导出图文战果报告书——汇报老板之前，先让TA给你递一份战报✨</p>
+        <div class="tags">
+          <span>7款报告风格</span><span>角色联动</span><span>图文导出</span>
+        </div>
+      </div>
+      <button class="dlc-video-btn" onclick="openVideo('assets/dlc-videos/dlc-memo-report.mp4')">▶ 观看演示视频</button>
     </div>
   </div>
 </section>
@@ -816,11 +894,11 @@
   <div class="steps">
     <div class="step">
       <div class="n">1</div>
-      <div><h4>联系我，说说想要套餐几</h4><p>价目表里每个组合都编了号（套餐1~4），私信直接报数字最快，也可以细聊你想要的搭配。</p></div>
+      <div><h4>选好套餐，闲鱼直接拍 / 私信联系我</h4><p>已上架闲鱼，价目表里的套餐可以直接在闲鱼店铺选规格拍下；也可以私信小红书/IG告诉我想要套餐几，细聊搭配都行。</p></div>
     </div>
     <div class="step">
       <div class="n">2</div>
-      <div><h4>转账确认</h4><p>支持支付宝（中国）、TnG E-Wallet 和 Shopee Pay（大马），确认好组合和价格后完成付款。</p></div>
+      <div><h4>付款确认</h4><p>闲鱼拍下走平台担保交易，付款后等我发货即可；私信联系的支持支付宝（中国）、TnG E-Wallet 和 Shopee Pay（大马）转账确认。</p></div>
     </div>
     <div class="step">
       <div class="n">3</div>
@@ -854,6 +932,7 @@
   <p>私信我，告诉我你想要的组合 —— 主体 / 外观 / 专属定制，都可以聊。</p>
   <div class="cta-row">
     <a class="btn-primary" href="https://www.xiaohongshu.com/user/profile/5e232da800000000010071c3" target="_blank" rel="noopener">💌 小红书私信我</a>
+    <a class="btn-xianyu" href="https://m.tb.cn/h.8v8fAma?tk=5ZYHTlRkJ7p" target="_blank" rel="noopener">🐟 闲鱼直接拍</a>
     <a class="btn-ig" href="https://www.instagram.com/yandesktoppet/" target="_blank" rel="noopener">📷 IG私信我</a>
   </div>
 </div>
@@ -929,6 +1008,42 @@
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeLightbox();
   });
+})();
+</script>
+
+<script>
+(function(){
+  var sectionNames = {
+    news: '公告', features: 'TA能做什么', packs: '选购角色', dlc: 'DLC',
+    pricing: '价目表', requirements: '运行环境', how: '领养流程',
+    guidebook: '饲养指南', contact: '联系认领'
+  };
+  var sections = Object.keys(sectionNames).map(function(id){
+    return document.getElementById(id);
+  }).filter(Boolean);
+  var navCurrentText = document.getElementById('navCurrentText');
+  var navProgress = document.getElementById('navProgress');
+  if(!sections.length) return;
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting && navCurrentText){
+        navCurrentText.textContent = sectionNames[entry.target.id];
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+  sections.forEach(function(sec){ observer.observe(sec); });
+
+  function updateProgress(){
+    if(!navProgress) return;
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+    navProgress.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
 })();
 </script>
 
