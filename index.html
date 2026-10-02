@@ -289,6 +289,11 @@
   .announce-item p{ font-size: 13px; color: var(--text-dim); }
   .announce-item ul{ font-size: 13px; color: var(--text-dim); padding-left: 18px; margin-top: 2px; }
   .announce-item li{ margin-bottom: 2px; }
+  .announce-item .sub-head{
+    font-size: 12px; font-weight:700; color: var(--text);
+    margin-top: 10px; margin-bottom: 2px;
+  }
+  .announce-item .sub-head:first-of-type{ margin-top: 2px; }
 
   /* ============ HOW IT WORKS ============ */
   .steps{
@@ -540,10 +545,44 @@
            1. 日期改成今天
            2. 如果是重要公告（比如大版本更新），加 class="pinned" 让它有粉色边框更显眼；普通公告不用加
            3. tag-badge 可以写"版本更新" / "功能预告" / "维护通知"等，也可以直接删掉这一行
-           4. h4 是标题，p 是详细描述
+           4. h4 是标题
+           5. 如果想分"新增"/"优化"这种子分类，不用 p，直接写多组 <p class="sub-head">分类名</p><ul>...</ul>，
+              要几组写几组；不分类的话照旧写一个 <ul> 或 <p> 就行
            超过约3-4条会自动出现滚动条，不用担心区块越拉越长 -->
 
       <div class="announce-item pinned">
+        <div class="date">2026.10.02</div>
+        <div class="body">
+          <span class="tag-badge">版本更新</span>
+          <h4>0.4.2</h4>
+          <p class="sub-head">新增</p>
+          <ul>
+            <li>心里话支持主动气泡提醒，不用再悬停才能看到</li>
+            <li>表情包支持「已导入库」：可直接切换、删除已装过的表情包，不用每次重新导入</li>
+            <li>单独购买过外观的用户，现在可以在设置面板「表情」tab 直接找到对应的下载链接</li>
+          </ul>
+          <p class="sub-head">优化</p>
+          <ul>
+            <li>AI 接口请求失败时（余额不足 / 网络异常 / 请求超时等），提示信息改为友好的中文说明，不再直接显示原始报错</li>
+            <li>修复心里话 / 主动搭话偶尔引用过期日期信息（例如把"还剩一天半"记混）的问题</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="announce-item pinned">
+        <div class="date">2026.09.30</div>
+        <div class="body">
+          <span class="tag-badge">DLC更新</span>
+          <h4>英语单词挑战 2.3.0</h4>
+          <ul>
+            <li>新增例句库，自定义词库以及文章精读功能</li>
+            <li>新增荣誉墙以及大量成就徽章</li>
+            <li>支持导出每日学习单词以及例句</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="announce-item">
         <div class="date">2026.09.23</div>
         <div class="body">
           <span class="tag-badge">DLC上线</span><span class="tag-badge">新增角色</span>
@@ -555,7 +594,7 @@
         </div>
       </div>
 
-      <div class="announce-item pinned">
+      <div class="announce-item">
         <div class="date">2026.09.20</div>
         <div class="body">
           <span class="tag-badge">版本更新</span>
@@ -568,7 +607,7 @@
         </div>
       </div>
 
-      <div class="announce-item pinned">
+      <div class="announce-item">
         <div class="date">2026.09.20</div>
         <div class="body">
           <span class="tag-badge">DLC更新</span>
@@ -906,7 +945,7 @@
     </div>
     <div class="step">
       <div class="n">4</div>
-      <div><h4>跟着《饲养指南》从零开始</h4><p>开机、激活、接上你自己的 DeepSeek API Key（不接桌宠也可运行），全程图文教学，照着做就行。</p></div>
+      <div><h4>跟着《饲养指南》从零开始</h4><p>开机、激活、接上你自己的 DeepSeek API Key，全程图文教学，照着做就行。</p></div>
     </div>
   </div>
 </section>
